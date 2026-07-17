@@ -2,7 +2,9 @@
 
 A growing library of **parametric, 3D-printable models for paintball marker parts**.
 Every part is authored as [OpenSCAD](https://openscad.org/) source (fully parametric,
-units in mm) and committed alongside a ready-to-slice `.stl` export.
+units in mm) and, in most cases, committed alongside a ready-to-slice `.stl` export.
+(A part that engraves trademarked artwork ships as source only — see its
+`stl/README.md`.)
 
 ## Printing notes
 
