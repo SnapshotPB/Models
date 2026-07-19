@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Placeholder for the Snapshot PB trademark logo.
+
+  The real "S" artwork (openscad/logo.svg) is a trademark: it is gitignored and
+  NOT distributed, so a clone of this repo does not have it. grip.scad's logo_file
+  DEFAULTS to this file so such a build still imports a valid SVG that contains no
+  drawable path: the engrave step cuts nothing, the console stays clean (no
+  "Can't open file" error), and the panel simply renders unbranded.
+
+  Branded build (owner, with the real art present locally):
+      openscad -D 'logo_file="logo.svg"' -o stl/grip.stl openscad/grip.scad
+
+  The viewBox matches the real art (logo_svg in grip.scad) so logo centering is
+  identical whether the panel is branded or not.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="18.894876" height="35.957474"
+     viewBox="0 0 18.894876 35.957474"></svg>
