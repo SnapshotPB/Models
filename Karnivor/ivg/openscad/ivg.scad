@@ -35,6 +35,11 @@ scallop         = true;     // hollow out the interior into a thin-walled cup
 scallop_open    = "back";   // open end face: "back" (drive) or "front" (tip)
 scallop_fn      = 120;      // facets on the scallop cylinder
 
+/* [O-ring] */
+o_ring          = true;     // An oring partially engages the threads to prevent backout
+o_ring_diameter = 15;       // O-ring slot is 19/32"
+o_ring_height   = 2;        // O-ring height/gap is 5/64"
+
 /* [Drive holes] */
 drive_holes     = true;     // four holes in the floor (90 deg apart) for a pin tool
 drive_hole_fn   = 60;       // facets on each drive hole
@@ -43,7 +48,7 @@ drive_hole_fn   = 60;       // facets on each drive hole
 slots           = true;     // six through-wall windows down the side
 slot_count      = 6;        // number of slots, evenly spaced around
 slot_w          = 5.5;      // slot width (tangential) = round-cutter diameter
-slot_z_bottom   = 4.0;      // slot floor, measured up from the base (z=0)
+slot_z_bottom   = 7;      // slot floor, measured up from the base (z=0)
 slot_open_top   = true;     // true: open through the top of the threads
                             // false: rounded cap just below the top
 slot_fn         = 48;       // facets on each slot cutter
@@ -152,6 +157,16 @@ module ivg() {
 
         // six through-wall side windows, top of threads down to slot_z_bottom
         if (slots) side_slots();
+        
+        // O-ring groove
+        if(o_ring) {
+            translate([0, 0, 3.4]) {
+                difference() {
+                    cylinder(h = o_ring_height, d = D, center = true);
+                    cylinder(h = o_ring_height, d = o_ring_diameter, center = true, $fn = bore_fn);
+                }
+            }
+        }
     }
 }
 

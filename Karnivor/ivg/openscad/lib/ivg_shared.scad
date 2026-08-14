@@ -10,8 +10,8 @@ P                = 25.4/16;    // pitch (16 TPI) = 1.5875
 thread_clearance = 0.15;       // radial crest shrink for print fit (0 = nominal)
 length           = 12.7;       // overall length (0.5")
 bore_d           = 6.0;        // center through-bore diameter
-scallop_wall     = 1.2;        // radial wall left at the thread ROOT
-scallop_floor    = 1.2;        // floor thickness on the closed end
+scallop_wall     = 2.5;        // radial wall left at the thread ROOT
+scallop_floor    = 6.75;        // floor thickness on the closed end (17/64")
 drive_wall       = 0.8;        // min material around the two drive holes
 
 // ---- derived thread / cavity geometry ----

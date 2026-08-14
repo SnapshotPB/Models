@@ -19,7 +19,7 @@ plug_clear  = 0.00;   // plug-to-cavity-wall clearance (diametral)
 
 /* [Sizes] */
 pin_engage  = 1.6;    // pin protrusion into the floor holes
-grip_h      = 11.0;   // grip height
+grip_h      = 7.0;   // grip height
 flutes      = 14;     // finger flutes cut into the grip
 flute_d     = 2.6;
 center_fn   = 120;    // facets on the center through-hole
