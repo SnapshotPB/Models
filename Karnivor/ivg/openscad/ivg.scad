@@ -10,9 +10,11 @@
 // so that twisting it reproduces a true 60-deg V-thread (flank slope = tan30).
 //
 // ---- PRINTING NOTE ------------------------------------------------------
-//   thread_clearance is a RADIAL shrink of the crest for a printable fit.
-//   Set thread_clearance = 0 for EXACT nominal 3/4-16 geometry (major = 19.05).
-//   ~0.15 mm is a sane starting point for an FDM male thread into metal.
+//   thread_clearance is a RADIAL relief of the FLANKS (pitch diameter). It
+//   never touches the crest, so the major diameter is ALWAYS exactly 19.05 --
+//   that is a hard requirement of this part, so do not "clear" it by shrinking
+//   the OD. Set thread_clearance = 0 for exact nominal 3/4-16 geometry;
+//   ~0.06 mm is a sane starting point for an FDM male thread into metal.
 // -------------------------------------------------------------------------
 
 // Shared interface dims (D, P, thread_clearance, length, bore_d, scallop_wall/
@@ -58,9 +60,8 @@ seg_per_turn    = 32;       // helix slices per revolution
 cam_step        = 3;        // deg between thread cam points (smaller = smoother)
 env_fn          = 96;       // facets for the round envelope
 
-// Angular widths of one period (constants for the basic UN profile):
-//   root flat P/4 -> 90deg, each flank 5P/16 -> 112.5deg, crest flat P/8 -> 45deg
-A_ROOT = 90; A_FLANK = 112.5; A_CREST = 45;
+// A_ROOT / A_FLANK / A_CREST (angular widths of one period) come from
+// lib/ivg_shared.scad, where thread_clearance is folded into the two flats.
 
 function cam_r(a) =
     let(t = ((a % 360) + 360) % 360)
@@ -69,10 +70,21 @@ function cam_r(a) =
       t <  A_ROOT + A_FLANK + A_CREST    ? rcrest :
                                            rcrest - (t - A_ROOT - A_FLANK - A_CREST)/A_FLANK*(rcrest - rroot);
 
-// Solid 2D cam whose radius sweeps root->crest->root once around.
+// One profile segment, sampled at <= cam_step and INCLUDING its start angle.
+function cam_arc(s, e) =
+    let(n = max(1, ceil((e - s) / cam_step)))
+    [ for (i = [0 : n-1]) let(a = s + (e - s) * i / n)
+        [ cam_r(a)*cos(a), cam_r(a)*sin(a) ] ];
+
+// Solid 2D cam whose radius sweeps root->crest->root once around. Sampled per
+// segment rather than on a blind fixed grid, so exact vertices always land on
+// the four profile breakpoints -- in particular on both ends of the crest flat,
+// which is what pins the outside diameter at D once the flats stop being
+// multiples of cam_step.
 module thread_cam() {
-    polygon([ for (a = [0 : cam_step : 360 - cam_step])
-                [ cam_r(a)*cos(a), cam_r(a)*sin(a) ] ]);
+    a1 = A_ROOT; a2 = a1 + A_FLANK; a3 = a2 + A_CREST;
+    polygon(concat(cam_arc(0, a1), cam_arc(a1, a2),
+                   cam_arc(a2, a3), cam_arc(a3, 360)));
 }
 
 // Full-length threaded blank (flat ends, ragged crest at the very tips).
@@ -87,15 +99,21 @@ module threaded_blank() {
 
 // Round envelope with 45-deg chamfers top & bottom -- intersected with the
 // blank to give clean chamfered thread lead-ins at both ends.
+//
+// rotate_extrude inscribes its polygon in the circle, so a straight side at
+// D/2 actually sits at D/2*cos(180/env_fn) between vertices and would shave
+// ~0.01 mm off the crest all the way round. Circumscribe instead: the FLATS
+// then land on D/2 and the envelope can never cut inside the major diameter.
 module envelope() {
+    er = (D/2) / cos(180 / env_fn);
     rotate_extrude($fn = env_fn)
         polygon([
-            [0,               0],
-            [D/2 - front_chamfer, 0],
-            [D/2,             front_chamfer],
-            [D/2,             length - back_chamfer],
-            [D/2 - back_chamfer, length],
-            [0,               length],
+            [0,                  0],
+            [er - front_chamfer, 0],
+            [er,                 front_chamfer],
+            [er,                 length - back_chamfer],
+            [er - back_chamfer,  length],
+            [0,                  length],
         ]);
 }
 
@@ -158,11 +176,14 @@ module ivg() {
         // six through-wall side windows, top of threads down to slot_z_bottom
         if (slots) side_slots();
         
-        // O-ring groove
+        // O-ring groove. The outer cutter must clear the crest by a margin: at
+        // d = D on default $fn (~30 facets) its flats sit at 9.4728, INSIDE the
+        // 9.525 crest, and it leaves ~30 scalloped slivers of thread in the
+        // groove. Oversize it -- nothing of the part lives out there anyway.
         if(o_ring) {
             translate([0, 0, 3.4]) {
                 difference() {
-                    cylinder(h = o_ring_height, d = D, center = true);
+                    cylinder(h = o_ring_height, d = D + 2, center = true, $fn = env_fn);
                     cylinder(h = o_ring_height, d = o_ring_diameter, center = true, $fn = bore_fn);
                 }
             }
@@ -170,8 +191,11 @@ module ivg() {
     }
 }
 
-echo(str("IVG  major=", D - 2*thread_clearance, "  minor=", 2*rroot,
-         "  cavity_d=", cavity_d, "  floor=", scallop_floor));
+echo(str("IVG  major=", 2*rcrest, " (nominal ", D, ")  pitch=", pitch_d,
+         "  minor=", 2*rroot, "  cavity_d=", cavity_d, "  floor=", scallop_floor));
+echo(str("FORM  flank=", 2*atan((A_FLANK/360*P) / (rcrest-rroot)), " deg incl",
+         "  root flat=", A_ROOT/360*P, "  crest flat=", A_CREST/360*P,
+         "  (clearance ", thread_clearance, " -> ", flank_relief, " deg relief)"));
 echo(str("DRIVE  4x holes  d=", drive_hole_d, "  on R=", drive_circle_r,
          "  90deg apart (pitch ", 2*drive_circle_r, " across)"));
 echo(str("SLOTS  ", slots ? slot_count : 0, "x  w=", slot_w,
