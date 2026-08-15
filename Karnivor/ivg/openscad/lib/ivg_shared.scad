@@ -15,11 +15,11 @@ thread_clearance = 0.06;       // radial PITCH-dia relief for print fit (0 = nom
 length           = 12.7;       // overall length (0.5")
 bore_d           = 6.0;        // center through-bore diameter
 scallop_wall     = 2.5;        // radial wall left at the thread ROOT
-scallop_floor    = 6.75;        // floor thickness on the closed end (17/64")
+scallop_floor    = 6.75;       // floor thickness on the closed end (17/64")
 drive_wall       = 0.8;        // min material around the two drive holes
 
 // ---- derived thread / cavity geometry ----
-H        = 0.8660254 * P;                 // sharp 60-deg triangle height
+H        = 0.8660254 * P;                  // sharp 60-deg triangle height
 h        = 5/8 * H;                        // engaged thread depth
 rroot    = D/2 - h;                        // thread minor radius
 rcrest   = D/2;                            // crest == nominal major radius. NEVER
@@ -60,5 +60,5 @@ assert(A_CREST > 2, str("thread_clearance ", thread_clearance,
 // one). Count/positions live in the part files -- only size + bolt circle here.
 _r_in          = bore_d/2 + drive_wall;    // inner keep-out (center bore)
 _r_out         = cavity_r - drive_wall;    // outer keep-out (cavity wall)
-drive_hole_d   = _r_out - _r_in;           // largest hole that fits the band
-drive_circle_r = (_r_in + _r_out) / 2;     // bolt-circle radius of the pair
+drive_hole_d   = 3.8;           // largest hole that fits the band
+drive_circle_r = (D - bore_d) / 2 - drive_hole_d / 4;     // bolt-circle radius of the pair, /4 to convert hole_d to half radius

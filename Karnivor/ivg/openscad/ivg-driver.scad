@@ -15,10 +15,10 @@ $fn = 64;
 
 /* [Fit] */
 fit_clear   = 0.30;   // pin slip fit into the drive holes (diametral)
-plug_clear  = 0.00;   // plug-to-cavity-wall clearance (diametral)
+plug_clear  = 1;   // plug-to-cavity-wall clearance (diametral)
 
 /* [Sizes] */
-pin_engage  = 1.6;    // pin protrusion into the floor holes
+pin_engage  = 2;    // pin protrusion into the floor holes
 grip_h      = 7.0;   // grip height
 flutes      = 14;     // finger flutes cut into the grip
 flute_d     = 2.6;
@@ -31,7 +31,7 @@ max_length  = 25.4;   // hard cap: 1", pins to opposite end
 
 // ---- derived from the shared interface ----
 pin_d    = drive_hole_d - fit_clear;   // slip fit into the drive holes
-plug_d   = cavity_d     - plug_clear;  // slides into the cavity, centers the tool
+plug_d   = D     - plug_clear;         // slides into the cavity, centers the tool
 grip_d   = plug_d;                     // UNIFORM diameter: grip == plug (flutes cut in)
 plug_h   = cavity_depth;               // spans cavity so pins reach the floor
 tool_len = pin_engage + plug_h + grip_h;
@@ -61,9 +61,8 @@ module driver() {
         union() {
             grip();                                              // z 0..grip_h
             translate([0, 0, grip_h]) cylinder(d = plug_d, h = plug_h);
-            // four pins to match the IVG's four holes; the +Y (90 deg) pin sits
-            // inside the side slot below and gets carved away, leaving three.
-            for (a = [0, 90, 180, 270])
+            // three pins to match the IVG's four holes
+            for (a = [0, 180, 270])
                 rotate([0, 0, a])
                     translate([drive_circle_r, 0, grip_h + plug_h])
                         tapered_pin(pin_d, pin_engage);

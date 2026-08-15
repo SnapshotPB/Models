@@ -169,7 +169,7 @@ module ivg() {
             for (a = [0, 90, 180, 270])
                 rotate([0, 0, a])
                     translate([drive_circle_r, 0, hz0])
-                        cylinder(h = scallop_floor + 0.2, d = drive_hole_d,
+                        cylinder(h = scallop_floor / 2, d = drive_hole_d,
                                  $fn = drive_hole_fn);
         }
 
