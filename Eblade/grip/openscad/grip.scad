@@ -146,12 +146,13 @@ cutout_tilt = 0;           // 0 = vertical, perpendicular to the level top edge 
 /* [Holes] */
 hole_d = 4.5;            // drilled through; the cutout shortens H2's bore to cutout_floor
 H2 = [97.79, 102.44];    // CONFIRMED on the marker. Datum — do not move.
-H1 = [62.65, H2[1]];     // level with H2 (both sit 4.5 mm below the level top edge)
-H3 = [66.39,   5.06];    // +3.38 X (forward), +0.07 Y from [63.01, 4.99]. The datum is H1 on its bore of the
-                         //   72deg frame CAD with the top edge parallel to the top of the frame, and H3 goes where
-                         //   the second bore then lands. [63.01, 4.99] fitted both bores but left the top edge 1.99
-                         //   deg off the frame top (DESIGN.md). +X is forward (finger grooves), +Y is up toward the
-                         //   top. Not yet checked on a print.
+H1 = [60.20, H2[1]];     // -2.45 X from 62.65; level with H2 (both sit 4.5 mm below the level top edge). The panel
+                         //   slides 2.45 forward on the 72deg frame, so that it no longer hangs off the rear of the
+                         //   frame and it covers the board cavity; H1 and H3 move back by the same 2.45 to stay on
+                         //   their bores (DESIGN.md).
+H3 = [63.94,   5.06];    // -2.45 X from [66.39, 5.06], for the same slide. H1 on its bore with the top edge parallel
+                         //   to the frame top is still the datum, and H3 is where the second bore lands. +X is
+                         //   forward (finger grooves), +Y is up toward the top. Not yet checked on a print.
 holes = [H1, H2, H3];
 
 /* [Countersink] */

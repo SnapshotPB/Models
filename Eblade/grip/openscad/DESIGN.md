@@ -421,19 +421,29 @@ exactly collinear in X (`H1.y = H2[1]`), so moves along the H1–H2 line are pur
 - **H2** `[97.79, 102.44]` — CONFIRMED correct on the marker. Datum; do not
   move. Both other holes are dimensioned off it — including the level top edge,
   which is `grip_top_y = H2[1] + 4.5`.
-- **H1** `[62.65, H2[1]]` — x as before (spacing H1–H2 = 35.14 mm), but y is now
-  pinned level with H2, so both top holes sit exactly 4.5 mm below the level top
-  edge. Was y 102.50 (0.06 mm above H2); that split is what showed the top edge
-  was tilted.
-- **H3** `[66.39, 5.06]` — as-found `[64.31, 3.86]`. **The datum is H1 on its bore, with the
-  top edge of the grip parallel to the top of the frame**, and the back face flat on the side
-  of the frame. H3 is where the second tapped grip-screw bore then lands. Measured on
-  2026-09-26 on the posed mesh of the 72° frame CAD: the top of the frame is one plane, and a
-  fit to it leaves no residual at 0.00001 mm; the two bores stand 97.452 mm apart; and in this pose the second bore lands
-  at `[66.3906, 5.0599]`. So the H1–H3 line leans 2.20° forward of the grip's −Y.
-  - The last value, `[63.01, 4.99]`, put both holes on their bores, but it left the top
-    edge of the grip 1.99° off the top of the frame. The move is +3.38 mm in X and +0.07 mm
-    in Y.
+**The datum for the 72° frame CAD.** The top edge of the grip is parallel to the top of
+the frame, and the back face is flat on the side of the frame. The panel then stands where
+its rear and front insets are equal: its rear edge is 1.14 mm inside the rear edge of the
+frame, and its front edge, below the trigger guard, is 1.04 mm inside the front edge. There
+it covers the board cavity in the side of the frame, with one exception: a sliver of
+8.8 mm² at the top rear, where the cavity reaches the top of the frame and the top edge of
+the grip stands 1.03 mm below it. **The owner accepts that sliver**: a slide along the top
+edge cannot close it, and the top edge stays where it is. H1 and H3 are where the two tapped
+grip-screw bores of the frame land in this pose. Measured on 2026-09-26 on the posed mesh of
+the 72° frame CAD, on a 0.1 mm grid.
+
+- **H1** `[60.20, H2[1]]` — spacing H1–H2 = 37.59 mm. Was `[62.65, H2[1]]`: in that place the
+  panel hung 0.72 mm off the rear of the frame and left 74.4 mm² of the cavity open along the
+  front strap, so the panel slides 2.45 mm forward and H1 moves back by the same 2.45 mm to
+  stay on its bore. y is pinned level with H2, so both top holes sit exactly 4.5 mm below
+  the level top edge.
+- **H3** `[63.94, 5.06]` — as-found `[64.31, 3.86]`. The second bore lands at
+  `[63.9406, 5.0599]`: the top of the frame is one plane (a fit to it leaves no residual at
+  0.00001 mm), and the two bores stand 97.452 mm apart. So the H1–H3 line leans 2.20° forward
+  of the grip's −Y.
+  - Was `[66.39, 5.06]`, and it moves back 2.45 mm with H1, for the slide above.
+  - The value before that, `[63.01, 4.99]`, put both holes on their bores, but it left the
+    top edge of the grip 1.99° off the top of the frame.
   - The third bore of the frame's top row, 21.8 mm forward of H1's bore, does not stand on the
     grip's top screw row in this pose. It stands 0.79 mm above it, because the frame CAD
     draws that row 2.07° off its own top. With the last value it stood 0.03 mm above the row.
