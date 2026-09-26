@@ -425,12 +425,19 @@ exactly collinear in X (`H1.y = H2[1]`), so moves along the H1–H2 line are pur
   pinned level with H2, so both top holes sit exactly 4.5 mm below the level top
   edge. Was y 102.50 (0.06 mm above H2); that split is what showed the top edge
   was tilted.
-- **H3** `[63.01, 4.99]` — as-found `[64.31, 3.86]`. The H1–H3 span is 97.45 mm. That is
-  the span of the two tapped grip-screw bores of the 72° frame CAD, 97.452 mm between their
-  centres, measured on 2026-09-26 on the posed frame mesh. With H1 and H3 on those two
-  bores, each hole lands 0.001 mm from its bore. The last move was +0.13 mm in Y (toward
-  H1) from `[63.01, 4.86]`, which gave a span of 97.58 mm, 0.13 mm too long. The LOGO echo
-  gives 7.63 mm of logo clearance. Not yet checked on a print.
+- **H3** `[66.39, 5.06]` — as-found `[64.31, 3.86]`. **The datum is H1 on its bore, with the
+  top edge of the grip parallel to the top of the frame**, and the back face flat on the side
+  of the frame. H3 is where the second tapped grip-screw bore then lands. Measured on
+  2026-09-26 on the posed mesh of the 72° frame CAD: the top of the frame is one plane, and a
+  fit to it leaves no residual at 0.00001 mm; the two bores stand 97.452 mm apart; and in this pose the second bore lands
+  at `[66.3906, 5.0599]`. So the H1–H3 line leans 2.20° forward of the grip's −Y.
+  - The last value, `[63.01, 4.99]`, put both holes on their bores, but it left the top
+    edge of the grip 1.99° off the top of the frame. The move is +3.38 mm in X and +0.07 mm
+    in Y.
+  - The third bore of the frame's top row, 21.8 mm forward of H1's bore, does not stand on the
+    grip's top screw row in this pose. It stands 0.79 mm above it, because the frame CAD
+    draws that row 2.07° off its own top. With the last value it stood 0.03 mm above the row.
+  - The LOGO echo gives 7.56 mm of logo clearance. Not yet checked on a print.
 
 ## Countersink
 
