@@ -147,9 +147,10 @@ cutout_tilt = 0;           // 0 = vertical, perpendicular to the level top edge 
 hole_d = 4.5;            // drilled through; the cutout shortens H2's bore to cutout_floor
 H2 = [97.79, 102.44];    // CONFIRMED on the marker. Datum — do not move.
 H1 = [62.65, H2[1]];     // level with H2 (both sit 4.5 mm below the level top edge)
-H3 = [63.01,   4.86];    // nudged +1.5 X (forward) and +0.5 Y (up) from [61.51, 4.36] (which was 4 mm
-                         //   rear of [65.51, 4.36]). +X is forward (finger grooves), +Y is up toward the
-                         //   top. Unverified — awaiting next print.
+H3 = [63.01,   4.99];    // +0.13 Y (up, toward H1) from [63.01, 4.86]. That H1-H3 span was 97.58, and the two
+                         //   tapped grip-screw bores of the 72deg frame CAD are 97.45 apart, so H3 sat 0.13 too
+                         //   far from H1. The span is now 97.45, and H1 and H3 land on the bores (DESIGN.md).
+                         //   +X is forward (finger grooves), +Y is up toward the top. Not yet checked on a print.
 holes = [H1, H2, H3];
 
 /* [Countersink] */
