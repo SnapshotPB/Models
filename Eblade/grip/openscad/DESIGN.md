@@ -425,10 +425,12 @@ exactly collinear in X (`H1.y = H2[1]`), so moves along the H1–H2 line are pur
   pinned level with H2, so both top holes sit exactly 4.5 mm below the level top
   edge. Was y 102.50 (0.06 mm above H2); that split is what showed the top edge
   was tilted.
-- **H3** `[65.51, 4.36]` — as-found `[64.31, 3.86]`. Latest move: +2 mm in +X (toward
-  the finger-cut front edge) and −1 mm in Y (down, away from the logo) from the prior
-  `[63.51, 5.36]`. The down move buys +1 mm of logo clearance (LOGO echo now 8.26 mm).
-  Unverified — awaiting the next print.
+- **H3** `[63.01, 4.99]` — as-found `[64.31, 3.86]`. The H1–H3 span is 97.45 mm. That is
+  the span of the two tapped grip-screw bores of the 72° frame CAD, 97.452 mm between their
+  centres, measured on 2026-09-26 on the posed frame mesh. With H1 and H3 on those two
+  bores, each hole lands 0.001 mm from its bore. The last move was +0.13 mm in Y (toward
+  H1) from `[63.01, 4.86]`, which gave a span of 97.58 mm, 0.13 mm too long. The LOGO echo
+  gives 7.63 mm of logo clearance. Not yet checked on a print.
 
 ## Countersink
 

@@ -1,21 +1,24 @@
 # Eblade grip — STL
 
-The `.stl` for this part is **not committed**. Unlike the other models in this
-repository, the Eblade grip engraves the **Snapshot PB "S" mark** into the panel —
-a trademark that is not distributed here (see the NOTICE at the top of
-[`LICENSE`](../../../LICENSE)). Both the logo source (`../openscad/logo.svg`) and
-the exported mesh (which embeds the engraved geometry) are gitignored.
+The committed `grip.stl` is **unbranded**. It is rendered with the committed
+`../openscad/logo.placeholder.svg`, an empty SVG, so the mesh holds no logo geometry.
+The Eblade grip can engrave the **Snapshot PB "S" mark** into the panel. That mark is a
+trademark, and it is not distributed here (see the NOTICE at the top of
+[`LICENSE`](../../../LICENSE)). The logo source (`../openscad/logo.svg`) and a branded
+mesh (`grip-branded.stl`) are gitignored. Do not commit a branded mesh as `grip.stl`.
 
 ## Generating the mesh
 
 From the grip directory (`Eblade/grip/`):
 
 ```sh
-# Unbranded (the default — logo_file points at logo.placeholder.svg):
-openscad -o stl/grip.stl openscad/grip.scad                       # both hands, as a plate
+# Unbranded (the default — logo_file points at logo.placeholder.svg). This is the
+# committed mesh: both hands, as a plate.
+openscad -o stl/grip.stl openscad/grip.scad
 
-# Branded (needs the local trademark art openscad/logo.svg present):
-openscad -D 'logo_file="logo.svg"' -o stl/grip.stl openscad/grip.scad
+# Branded, for a print (needs the local trademark art openscad/logo.svg). It writes
+# a separate, gitignored file, so the committed grip.stl stays unbranded.
+openscad -D 'logo_file="logo.svg"' -o stl/grip-branded.stl openscad/grip.scad
 ```
 
 Requirements:

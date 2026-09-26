@@ -4,8 +4,9 @@
 # grip.scad's logo_file defaults to the committed logo.placeholder.svg (empty), so clones
 # render unbranded with a clean console; the real art below is only used via a -D override.
 Eblade/grip/openscad/logo.svg
-# grip.stl embeds the engraved logo geometry, so it is not distributed either.
-# Generate it locally from grip.scad (needs BOSL2; logo.svg present for a branded print).
-Eblade/grip/stl/grip.stl
+# stl/grip.stl is tracked. It is rendered with the empty placeholder, so it holds no logo
+# geometry. A branded mesh embeds the engraved logo, so it is not distributed: render it
+# as grip-branded.stl (see stl/README.md).
+Eblade/grip/stl/grip-branded.stl
 # grip.render.log is the console log from that render — a build artifact, not distributed.
 Eblade/grip/stl/grip.render.log
