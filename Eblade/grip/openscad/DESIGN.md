@@ -420,34 +420,34 @@ exactly collinear in X (`H1.y = H2[1]`), so moves along the H1–H2 line are pur
 
 - **H2** `[97.79, 102.44]` — CONFIRMED correct on the marker. Datum; do not
   move. Both other holes are dimensioned off it — including the level top edge,
-  which is `grip_top_y = H2[1] + 4.5`.
-**The datum for the 72° frame CAD.** The top edge of the grip is parallel to the top of
-the frame, and the back face is flat on the side of the frame. The panel then stands where
-its rear and front insets are equal: its rear edge is 1.14 mm inside the rear edge of the
-frame, and its front edge, below the trigger guard, is 1.04 mm inside the front edge. There
-it covers the board cavity in the side of the frame, with one exception: a sliver of
-8.8 mm² at the top rear, where the cavity reaches the top of the frame and the top edge of
-the grip stands 1.03 mm below it. **The owner accepts that sliver**: a slide along the top
-edge cannot close it, and the top edge stays where it is. H1 and H3 are where the two tapped
-grip-screw bores of the frame land in this pose. Measured on 2026-09-26 on the posed mesh of
-the 72° frame CAD, on a 0.1 mm grid.
+  which is `grip_top_y = H2[1] + 4.5`. H2 screws into a part that the 72° frame model does
+  not show, so the frame CAD has no bore under H2. That is correct (the owner, 2026-10-30).
 
-- **H1** `[60.20, H2[1]]` — spacing H1–H2 = 37.59 mm. Was `[62.65, H2[1]]`: in that place the
-  panel hung 0.72 mm off the rear of the frame and left 74.4 mm² of the cavity open along the
-  front strap, so the panel slides 2.45 mm forward and H1 moves back by the same 2.45 mm to
-  stay on its bore. y is pinned level with H2, so both top holes sit exactly 4.5 mm below
-  the level top edge.
-- **H3** `[63.94, 5.06]` — as-found `[64.31, 3.86]`. The second bore lands at
-  `[63.9406, 5.0599]`: the top of the frame is one plane (a fit to it leaves no residual at
-  0.00001 mm), and the two bores stand 97.452 mm apart. So the H1–H3 line leans 2.20° forward
-  of the grip's −Y.
-  - Was `[66.39, 5.06]`, and it moves back 2.45 mm with H1, for the slide above.
-  - The value before that, `[63.01, 4.99]`, put both holes on their bores, but it left the
-    top edge of the grip 1.99° off the top of the frame.
-  - The third bore of the frame's top row, 21.8 mm forward of H1's bore, does not stand on the
-    grip's top screw row in this pose. It stands 0.79 mm above it, because the frame CAD
-    draws that row 2.07° off its own top. With the last value it stood 0.03 mm above the row.
-  - The LOGO echo gives 7.56 mm of logo clearance. Not yet checked on a print.
+**The datum is the made frame, not the 72° frame CAD.** The top edge of the grip is parallel
+to the top of the frame. H1 and H2 keep the spacing that the owner confirmed on a print. H3
+goes where the bottom bore of the made frame lands in that pose. The 3-D scan of the made
+frame is the ground truth (SnapshotPB-PCB `docs/grip-frame-cad-review.md`). That review puts
+the top-rear bore of the CAD (hole D) 1.94 mm from the bore of the scan, so a grip made to
+the CAD does not fit the made frame.
+
+- **H1** `[62.65, H2[1]]` — spacing H1–H2 = 35.14 mm. On 2026-10-30 the owner measured
+  about 34.6 mm with calipers on a print of this spacing, and confirmed that it is correct.
+  y is pinned level with H2, so both top holes sit exactly 4.5 mm below the level top edge.
+  - PR #4 moved H1 to `[60.20, H2[1]]`, onto hole D of the CAD, and slid the panel 2.45 mm
+    forward. That made H1–H2 37.59 mm. This value reverts it.
+- **H3** `[63.95, 5.00]` — as-found `[64.31, 3.86]`. H3 stands 1.30 mm forward of H1 and
+  97.44 mm below it. On the scan, with the top of the frame level, the bottom bore stands
+  1.295 mm forward of the top-rear bore and 97.435 mm below it. The scan positions are good
+  to about ±0.3 mm. Measured on 2026-10-30.
+  - A print with H3 at `[63.01, 4.86]` or `[63.01, 4.99]`, 0.36 mm forward of H1, twisted on
+    the frame: H3 was too far back. On the scan, that H3 misses its bore by about 0.9 mm.
+  - PR #3 moved H3 to `[66.39, 5.06]`, and PR #4 moved it to `[63.94, 5.06]`. Both put H3
+    3.74 mm forward of H1, where the bottom bore of the CAD lands. That is about 2.4 mm too
+    far forward for the made frame.
+  - The LOGO echo gives 7.62 mm of logo clearance. Not yet checked on a print.
+- **On the 72° frame CAD** this grip does not fit: with H1 on hole D and the top edge level,
+  H3 misses the bottom bore by about 2.45 mm. The grip check in SnapshotPB-PCB
+  (`tools/grip_panels.py`) refuses it until hole D of the CAD moves to the scan position.
 
 ## Countersink
 
